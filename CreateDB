@@ -1,0 +1,61 @@
+
+
+CREATE TABLE IF NOT EXISTS employee(
+ id serial PRIMARY KEY,
+ first_name VARCHAR(255),
+ last_name  VARCHAR(255)
+ );
+
+ CREATE TABLE IF NOT EXISTS skill_group(
+  id serial PRIMARY KEY,
+  name VARCHAR(255),
+  description  VARCHAR(4000)
+  );
+
+CREATE TABLE IF NOT EXISTS skill_value(
+   name VARCHAR(255),
+   description  VARCHAR(4000),
+   id INT PRIMARY KEY
+   );
+
+CREATE TABLE IF NOT EXISTS skill_description(
+   id serial PRIMARY KEY,
+   name VARCHAR(255),
+   description  VARCHAR(4000),
+   group_id INT, FOREIGN KEY (group_id) REFERENCES skill_group(id)
+ );
+
+
+ CREATE TABLE IF NOT EXISTS employee_skills(
+   id serial PRIMARY KEY,
+   emp_id INT, FOREIGN KEY (emp_id) REFERENCES employee(id),
+   skill_desc_id  INT, FOREIGN KEY (skill_desc_id) REFERENCES skill_description(id),
+   skill_value_id INT, FOREIGN KEY (skill_value_id) REFERENCES skill_value(id)
+ );
+
+  CREATE TABLE IF NOT EXISTS map_excel_skill(
+    id serial PRIMARY KEY,
+    excel_field VARCHAR(255),
+    transit_field VARCHAR(255),
+    excel_group VARCHAR(255),
+    skill INT, FOREIGN KEY (skill) REFERENCES skill_description(id)
+  );
+
+  insert into skill_value (id, name, description)
+  values ('0', 'no knowleage', 'No knowledge or experience');
+  insert into skill_value (id, name, description)
+  values ('1', 'junior', 'Passed training, have surface knowledge, not ready for independent work, need a mentor on the technical part');
+  insert into skill_value (id, name, description)
+  values ('2', 'middle', 'Have experience in the application, ready for independent work as part of the team');
+  insert into skill_value (id, name, description)
+  values ('3', 'senior', 'Have extensive experience. Can work independently, think creatively and act as an expert (teach others)');
+
+
+
+
+
+
+
+
+
+
